@@ -32,4 +32,36 @@ spec:
   ports:
   - port: 31080
     targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: istio-controller
+spec:
+  controller: istio.io/ingress-controller
+---
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  name: cognyte-istiocontrolplane
+spec:
+  profile: default # istiod + ingress 
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cognyte-ingress
+spec:
+  ingressClassName: ingress-controller
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: cognyte-svc
+            port:
+              number: 31080
 ...

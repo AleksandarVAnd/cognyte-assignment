@@ -1,0 +1,7 @@
+#!/bin/bash
+echo "Istio controller - extracting"
+tar -zxvf istioctl-1.14.1-linux-amd64.tar.gz
+istioctl install --set profile=demo -y # istiod + ingress + egress
+kubectl label namespace default istio-injection=enabled
+istioctl operator init --watchedNamespaces=istio-operator,default
+kubectl port-forward service/cognyte-svc 31080:31080 # fallback option
