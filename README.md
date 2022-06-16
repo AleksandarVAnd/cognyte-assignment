@@ -1,3 +1,9 @@
+# Context
+
+I created a container image from that Dockerfile and I pushed it to a public Docker repository (aleksva/k8s-exp). I refer the image in the deploy.yaml file (line 18).
+
+For the environmental variable - it's in the image as well as the YAML file (lines 21-23).
+
 # Usage
 
 To create the deployment run the command:
